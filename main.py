@@ -10,11 +10,8 @@ def get_pixel_coord_y(y):
     return y * height / max_y
 
 
-def generate_image(textLine, lineCount, image):
-    draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("VCR_OSD_MONO_1.001.ttf", 48, encoding="unic")
-
-    text = textwrap.fill(textLine, 24)
+def format_text(text_line):
+    text = textwrap.fill(text_line, 24)
     rows = text.split('\n')
     result = []
     for row in rows:
@@ -22,7 +19,29 @@ def generate_image(textLine, lineCount, image):
 
     join = '\n'.join(result)
     print(join)
-    draw.text((get_pixel_coord_x(minXcm) + 55, get_pixel_coord_y(minYcm) + 40), join, (50, 90, 70), font=font)
+    return join
+
+
+def get_text_pos(draw, text, font):
+    w, h = draw.textsize(text, font=font)
+
+    coord_x_right = get_pixel_coord_x(maxXcm)
+    coord_x_left = get_pixel_coord_x(minXcm)
+    coord_y_down = get_pixel_coord_y(maxYcm)
+    coord_y_up = get_pixel_coord_y(minYcm)
+
+    x = ((coord_x_right - coord_x_left - w) / 2) + coord_x_left
+    y = ((coord_y_down - coord_y_up - h) / 2) + coord_y_up
+    return {'x': x + left_margin, 'y': y + top_margin}
+
+
+def generate_image(textLine, lineCount, image):
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("VCR_OSD_MONO_1.001.ttf", 48, encoding="unic")
+    text = format_text(textLine)
+    text_pos = get_text_pos(draw, text, font)
+
+    draw.text((text_pos['x'], text_pos['y']), text, (50, 90, 70), font=font)
     image.save('sample-out-' + str(lineCount) + '.png')
 
 
@@ -36,6 +55,9 @@ minXcm = 1.41
 maxXcm = 7.95
 minYcm = .82
 maxYcm = 3.17
+
+top_margin = -20
+left_margin = 10
 
 
 def main():
