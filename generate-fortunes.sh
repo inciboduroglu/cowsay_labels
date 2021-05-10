@@ -31,5 +31,5 @@ done
 echo "got the quotes... Passing them to the python script."
 rm -f $TFILE
 
-python main.py < $FINALFILE
+python3 main.py < $FINALFILE
 rm -f $FINALFILE
