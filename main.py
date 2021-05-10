@@ -10,11 +10,8 @@ def get_pixel_coord_y(y):
     return y * height / max_y
 
 
-def generate_image(textLine, lineCount, image):
-    draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("VCR_OSD_MONO_1.001.ttf", 48, encoding="unic")
-
-    text = textwrap.fill(textLine, 24)
+def format_text(text_line):
+    text = textwrap.fill(text_line, 24)
     rows = text.split('\n')
     result = []
     for row in rows:
@@ -22,7 +19,15 @@ def generate_image(textLine, lineCount, image):
 
     join = '\n'.join(result)
     print(join)
-    draw.text((get_pixel_coord_x(minXcm) + 55, get_pixel_coord_y(minYcm) + 40), join, (50, 90, 70), font=font)
+    return join
+
+
+def generate_image(textLine, lineCount, image):
+    draw = ImageDraw.Draw(image)
+    font = ImageFont.truetype("VCR_OSD_MONO_1.001.ttf", 48, encoding="unic")
+    text = format_text(textLine)
+
+    draw.text((get_pixel_coord_x(minXcm) + 55, get_pixel_coord_y(minYcm) + 40), text, (50, 90, 70), font=font)
     image.save('sample-out-' + str(lineCount) + '.png')
 
 
