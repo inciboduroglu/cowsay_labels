@@ -37,6 +37,7 @@ maxXcm = 7.95
 minYcm = .82
 maxYcm = 3.17
 
+
 def main():
     from sys import stdin
 
@@ -47,6 +48,7 @@ def main():
         print(">>> line: {}".format(line))
         generate_image(line, count, image)
         count += 1
+
 
 if __name__ == "__main__":
     main()
