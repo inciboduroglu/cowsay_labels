@@ -7,6 +7,6 @@
   "minYcm": 0.44,
   "maxYcm": 2.76,
   "top_margin": 0,
-  "left_margin": 20,
-  "max_char": 20
+  "left_margin": 15,
+  "max_char": 18
 }
