@@ -1,3 +1,5 @@
+import json
+
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 
@@ -11,11 +13,11 @@ def get_pixel_coord_y(y):
 
 
 def format_text(text_line):
-    text = textwrap.fill(text_line, 24)
+    text = textwrap.fill(text_line, max_char)
     rows = text.split('\n')
     result = []
     for row in rows:
-        result.append(row.center(24))
+        result.append(row.center(max_char))
 
     join = '\n'.join(result)
     print(join)
@@ -45,19 +47,26 @@ def generate_image(textLine, lineCount, image):
     image.save('sample-out-' + str(lineCount) + '.png')
 
 
-max_x = 18
-max_y = 8
+label_prop_file = 'label250prop.json'
+with open(label_prop_file) as f:
+    label_props = json.load(f)
 
-image = Image.open('label.png')
+max_x = label_props['max_x']
+max_y = label_props['max_y']
+
+label_file = label_props['label_file']
+image = Image.open(label_file)
 width, height = image.size
 
-minXcm = 1.41
-maxXcm = 7.95
-minYcm = .82
-maxYcm = 3.17
+minXcm = label_props['minXcm']
+maxXcm = label_props['maxXcm']
+minYcm = label_props['minYcm']
+maxYcm = label_props['maxYcm']
 
-top_margin = -20
-left_margin = 10
+top_margin = label_props['top_margin']
+left_margin = label_props['left_margin']
+
+max_char = label_props['max_char']
 
 
 def main():
@@ -65,7 +74,7 @@ def main():
 
     count = 0
     for line in stdin:
-        image = Image.open('label.png')
+        image = Image.open(label_file)
 
         print(">>> line: {}".format(line))
         generate_image(line, count, image)
