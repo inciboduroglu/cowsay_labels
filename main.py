@@ -47,10 +47,6 @@ def generate_image(textLine, lineCount, image):
     image.save('sample-out-' + str(lineCount) + '.png')
 
 
-label500 = {
-    'max_x': 18,
-    'max_y': 8
-}
 label_prop_file = 'label250prop.json'
 with open(label_prop_file) as f:
     label_props = json.load(f)
@@ -79,6 +75,7 @@ def main():
     count = 0
     for line in stdin:
         image = Image.open(label_file)
+
         print(">>> line: {}".format(line))
         generate_image(line, count, image)
         count += 1
