@@ -1,0 +1,12 @@
+{
+  "label_file": "label250.png",
+  "max_x": 17.5,
+  "max_y": 4,
+  "minXcm": 6,
+  "maxXcm": 11.2,
+  "minYcm": 0.44,
+  "maxYcm": 2.76,
+  "top_margin": 0,
+  "left_margin": 20,
+  "max_char": 20
+}
