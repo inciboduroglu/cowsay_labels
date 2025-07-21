@@ -3,6 +3,13 @@ import json
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 
+# textsize has been deprecated:
+# https://stackoverflow.com/a/77749307/4287715
+def textsize(text, font):
+    im = Image.new(mode="P", size=(0, 0))
+    draw = ImageDraw.Draw(im)
+    _, _, width, height = draw.textbbox((0, 0), text=text, font=font)
+    return width, height
 
 def get_pixel_coord_x(x):
     return x * width / max_x
@@ -25,7 +32,7 @@ def format_text(text_line):
 
 
 def get_text_pos(draw, text, font):
-    w, h = draw.textsize(text, font=font)
+    w, h = textsize(text, font=font)
 
     coord_x_right = get_pixel_coord_x(maxXcm)
     coord_x_left = get_pixel_coord_x(minXcm)

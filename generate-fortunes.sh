@@ -3,7 +3,11 @@
 # -v requires bash 4.2>
 
 RND=$(shuf -i 0-${#FLAMG[@]} -n 1)
-# The  -b  option initiates  Borg  mode;  -d  causes  the  cow to appear dead; -g invokes greedy mode; -p causes a state of paranoia to come  over  the  cow;  -s makes  the  cow  appear thoroughly stoned; -t yields a tired cow; -w is somewhat the opposite of -t, and initiates wired mode; -y brings on the cow's youthful appearance.
+# The  -b  option initiates  Borg  mode;  -d  causes  the  cow to appear dead;
+# -g invokes greedy mode; -p causes a state of paranoia to come  over  the
+# cow;  -s makes  the  cow  appear thoroughly stoned; -t yields a tired cow; -w
+# is somewhat the opposite of -t, and initiates wired mode; -y brings on the
+# cow's youthful appearance.
 FLAMG=("d" "g" "p" "s" "t" "w" "y")
 TFILE=$(mktemp)
 FINALFILE=$(mktemp)
